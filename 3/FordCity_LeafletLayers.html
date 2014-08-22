@@ -15,14 +15,6 @@
   <div id="map"></div>
   <script>
     
-	// create a map in the "map" div, set the view to a given place and zoom
-	// var map = L.map('map').setView([42.3157, -82.9959], 15);
-
-	// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-	// L.tileLayer('http://{s}.tiles.mapbox.com/v3/copystar.j9hpack5/{z}/{x}/{y}.png', {
- //    	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	// }).addTo(map);
-
 var stop62    = L.marker([42.319885, -82.999245]).bindPopup('Bus Stop: Central 3: Eastbound'),
     stop63    = L.marker([42.319782, -82.999725]).bindPopup('Bus Stop: Central 3: Westbound'),
     stop64    = L.marker([42.319073, -83.001457]).bindPopup('Bus Stop: Central 3: Eastbound'),
@@ -34,8 +26,6 @@ var mailbox173  = L.marker([42.325462, -83.002655]).bindPopup('Mailbox'),
     mailbox174  = L.marker([42.321976, -83.000343]).bindPopup('Mailbox');
 
 var mailboxes = L.layerGroup([mailbox173, mailbox174]);
-
-
 
 var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imagery © <a href="http://mapbox.com">Mapbox</a>', mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';
 

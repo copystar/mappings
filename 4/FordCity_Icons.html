@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Ford City</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <style type="text/css">
+    body { margin:0; padding:0; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+
+var busIcon = L.icon({
+    iconUrl: 'bus-18.png'
+});
+
+var postIcon = L.icon({
+    iconUrl: 'post-18.png'
+});
+
+var stop62    = L.marker([42.319885, -82.999245],{icon: busIcon}).bindPopup('Bus Stop: Central 3: Eastbound'),
+    stop63    = L.marker([42.319782, -82.999725],{icon: busIcon}).bindPopup('Bus Stop: Central 3: Westbound'),
+    stop64    = L.marker([42.319073, -83.001457],{icon: busIcon}).bindPopup('Bus Stop: Central 3: Eastbound'),
+    stop65    = L.marker([42.318638, -82.998177],{icon: busIcon}).bindPopup('Bus Stop: Central 3: Westbound');
+
+var busstops = L.layerGroup([stop62, stop63, stop64, stop65]);
+
+var mailbox173  = L.marker([42.325462, -83.002655],{icon: postIcon}).bindPopup('Mailbox'),
+    mailbox174  = L.marker([42.321976, -83.000343],{icon: postIcon}).bindPopup('Mailbox');
+
+var mailboxes = L.layerGroup([mailbox173, mailbox174]);
+
+var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imagery © <a href="http://mapbox.com">Mapbox</a>', mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';
+
+var grayscale = L.tileLayer(mbUrl, {id: 'examples.map-20v6611k', attribution: mbAttr}),
+    streets   = L.tileLayer(mbUrl, {id: 'examples.map-i86knfo3', attribution: mbAttr});
+
+var map = L.map('map', {
+    center: [42.3157, -82.9959],
+    zoom: 15,
+    layers: [grayscale, busstops]
+});
+
+var baseMaps = {
+    "Grayscale": grayscale,
+    "Streets": streets
+};
+
+var overlayMaps = {
+    "Bus Stops": busstops,
+    "Mail Boxes": mailboxes
+};
+
+L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+ </script>
+</body>
+</html>
