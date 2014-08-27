@@ -462,7 +462,7 @@ my.Map = Backbone.View.extend({
     this.map = new L.Map(this.$map.get(0));
 
     // var mapUrl = "//otile{s}-s.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png";
-    var mapUrl = "//{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg";
+    var mapUrl = "//{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg";
     // http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.{format}?access_token=<your access token>
     var osmAttribution = 'Map data &copy; 2014 OpenStreetMap contributors, Tiles Courtesy of <a href="http://www.stamen.com/" target="_blank">Stamen</a> ';
     var bg = new L.TileLayer(mapUrl, {maxZoom: 18, attribution: osmAttribution ,subdomains: 'abcd'});
