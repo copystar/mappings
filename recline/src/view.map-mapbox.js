@@ -462,7 +462,7 @@ my.Map = Backbone.View.extend({
     this.map = new L.Map(this.$map.get(0));
 
     // var mapUrl = "//otile{s}-s.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png";
-    var mapUrl = "//a.tiles.mapbox.com/v4/copystar.j9hpack5/{z}/{x}/{y}.png";
+    var mapUrl = "//{s}.tiles.mapbox.com/v4/copystar.j9hpack5/{z}/{x}/{y}.png";
     var osmAttribution = 'Map data &copy; 2014 OpenStreetMap contributors, Tiles Courtesy of <a href="http://www.mapbox.com/" target="_blank">Mapbox</a> ';
     var bg = new L.TileLayer(mapUrl, {maxZoom: 18, attribution: osmAttribution ,subdomains: '1234'});
     this.map.addLayer(bg);
