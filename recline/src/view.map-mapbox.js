@@ -465,7 +465,7 @@ my.Map = Backbone.View.extend({
     var mapUrl = "//{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg";
     // http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.{format}?access_token=<your access token>
     var osmAttribution = 'Map data &copy; 2014 OpenStreetMap contributors, Tiles Courtesy of <a href="http://www.stamen.com/" target="_blank">Stamen</a> ';
-    var bg = new L.TileLayer(mapUrl, {maxZoom: 18, attribution: osmAttribution ,subdomains: '1234'});
+    var bg = new L.TileLayer(mapUrl, {maxZoom: 18, attribution: osmAttribution ,subdomains: 'abcd'});
     this.map.addLayer(bg);
 
     this.markers = new L.MarkerClusterGroup(this._clusterOptions);
