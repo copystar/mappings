@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Recline</title>
+
+<link rel="stylesheet" href="../recline/vendor/bootstrap/2.3.2/css/bootstrap.css" />
+<link rel="stylesheet" href="../recline/css/grid.css" />
+
+<script type="text/javascript" src="../recline/vendor/jquery/1.7.1/jquery.js"></script>
+<script type="text/javascript" src="../recline/vendor/underscore/1.4.4/underscore.js"></script>
+<script type="text/javascript" src="../recline/vendor/backbone/1.0.0/backbone.js"></script>
+
+<script type="text/javascript" src="../recline/vendor/mustache/0.5.0-dev/mustache.js"></script>
+<script type="text/javascript" src="../recline/vendor/bootstrap/2.3.2/bootstrap.js"></script>
+<script type="text/javascript" src="../recline/vendor/slickgrid/2.0.1/jquery.event.drag-2.2.js"></script>
+<script type="text/javascript" src="../recline/vendor/slickgrid/2.0.1/slick.core.js"></script>
+<script type="text/javascript" src="../recline/vendor/slickgrid/2.0.1/slick.grid.js"></script>
+
+<script type="text/javascript" src="../recline/dist/recline.js"></script>
+
+<!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"> -->
+<link rel="stylesheet" href="../recline/vendor/leaflet/0.7.3/leaflet.css">
+<link rel="stylesheet" href="../recline/vendor/leaflet.markercluster/MarkerCluster.css">
+<link rel="stylesheet" href="../recline/vendor/leaflet.markercluster/MarkerCluster.Default.css">
+<link rel="stylesheet" href="../recline/css/map.css">
+
+<!-- <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> -->
+<script type="text/javascript" src="../recline/vendor/leaflet/0.7.3/leaflet.js"></script>
+<script type="text/javascript" src="../recline/vendor/leaflet.markercluster/leaflet.markercluster.js"></script>
+<script type="text/javascript" src="../recline/src/view.map-mapbox.js"></script>
+
+</head>
+<body>
+<div id="mymap"></div>
+<script type="text/javascript">
+// var data = [
+//   {id: 0, date: '2011-01-01', x: 1, y: 2, z: 3, category: 'BusStop', geo: {lat:42.319885, lon:-82.999245} },
+//   {id: 1, date: '2011-02-02', x: 2, y: 4, z: 24, category: 'BusStop', geo: {lat:42.319782, lon:-82.999725}},
+//   {id: 2, date: '2011-03-03', x: 3, y: 6, z: 9, category: 'BusStop', geo: {lat:42.319073, lon:-83.001457}},
+//   {id: 3, date: '2011-04-04', x: 4, y: 8, z: 6, category: 'BusStop', geo: {lat:42.318638, lon:-82.998177}},
+//   {id: 4, date: '2011-05-04', x: 5, y: 10, z: 15, category: 'Mailbox', geo: {lat:42.325462, lon:-83.002655}},
+//   {id: 5, date: '2011-06-02', x: 6, y: 12, z: 18, category: 'Mailbox', geo: {lat:42.321976, lon:-83.000343}}
+// ];
+
+
+  var data = {
+    resource_id: '5f693113-9e38-4395-a2b2-2f2ebbe87f10', // the resource id
+    limit: 50, // get 50 results
+    q: 'bus' // query for 'bus'
+  };
+  $.ajax({
+    url: 'http://odwe.ca/api/action/datastore_search',
+    data: data,
+    dataType: 'jsonp',
+    success: function(data) {
+      alert('Total results found: ' + data.result.total);
+    }
+  });
+
+
+var dataset = new recline.Model.Dataset({
+  records: data
+});
+
+
+var $el = $('#mymap');
+var map = new recline.View.Map({
+  model: dataset
+});
+$el.append(map.el);
+map.render();
+</script>
+
+
+
+</body>
+</html>
