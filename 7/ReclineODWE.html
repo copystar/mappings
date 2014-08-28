@@ -24,7 +24,6 @@
 <link rel="stylesheet" href="../recline/vendor/leaflet.markercluster/MarkerCluster.Default.css">
 <link rel="stylesheet" href="../recline/css/map.css">
 
-<!-- <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> -->
 <script type="text/javascript" src="../recline/vendor/leaflet/0.7.3/leaflet.js"></script>
 <script type="text/javascript" src="../recline/vendor/leaflet.markercluster/leaflet.markercluster.js"></script>
 <script type="text/javascript" src="../recline/src/view.map.js"></script>
@@ -45,7 +44,7 @@
     dataType: 'jsonp',
     success: function(data) {
     var dataset = new recline.Model.Dataset({
-  		records: data.results.records
+  		records: data.result.records
 		});
 	  var $el = $('#mymap');
 	  var map = new recline.View.Map({
@@ -56,22 +55,6 @@
     }
   });
 
-
-
-// var dataset = new recline.Model.Dataset({
-//   records: data
-// });
-
-
-// var $el = $('#mymap');
-// var map = new recline.View.Map({
-//   model: dataset
-// });
-// $el.append(map.el);
-// map.render();
 </script>
-
-
-
 </body>
 </html>
