@@ -44,23 +44,33 @@
     data: data,
     dataType: 'jsonp',
     success: function(data) {
-      alert('Total results found: ' + data.result.total);
+      // alert('Total results found: ' + data.result.total);
+
+      var dataset = new recline.Model.Dataset({
+  		records: data
+		});
+	  var $el = $('#mymap');
+	  var map = new recline.View.Map({
+  		model: dataset
+		});
+	  $el.append(map.el);
+		map.render();
     }
   });
 
 
 
-var dataset = new recline.Model.Dataset({
-  records: data
-});
+// var dataset = new recline.Model.Dataset({
+//   records: data
+// });
 
 
-var $el = $('#mymap');
-var map = new recline.View.Map({
-  model: dataset
-});
-$el.append(map.el);
-map.render();
+// var $el = $('#mymap');
+// var map = new recline.View.Map({
+//   model: dataset
+// });
+// $el.append(map.el);
+// map.render();
 </script>
 
 
