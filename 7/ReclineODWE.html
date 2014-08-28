@@ -44,7 +44,7 @@
     data: data,
     dataType: 'jsonp',
     success: function(data) {
-      // alert('Total results found: ' + data.result.total);
+      alert('Total results found: ' + data.result.total);
 
       var dataset = new recline.Model.Dataset({
   		records: data
