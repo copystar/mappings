@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Recline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+
+
+  <!-- for jsonp support -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+  </head>
+  <style type="text/css">
+    body { margin:0; padding:0; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+  <body>
+  <div id="map"></div>
+  <script type="text/javascript">
+  
+  var data = {
+    resource_id: '5f693113-9e38-4395-a2b2-2f2ebbe87f10', // the resource id
+    limit: 250, // get 250 results
+    // q: 'bus' // query for 'bus'
+  };
+  $.ajax({
+    url: 'http://odwe.ca/api/action/datastore_search',
+    data: data,
+    dataType: 'jsonp',
+    success: function(data) {
+      if (data.result.total > 0) {
+          sortOutMap(data.result.records);
+      }
+    }
+  });
+  
+  //probably easier to keep this in its own function
+  function sortOutMap(jdata) {
+      var busIcon = L.icon({
+          iconUrl: 'bus-18.png'
+      }); // busIcon
+
+      var postIcon = L.icon({
+      iconUrl: 'post-18.png'
+      }); // postIcon
+
+      var jbuses = [];
+      var jmail = [];
+
+      for (i = 0; i < jdata.length; i++) { 
+           //these are all buses in this query, but this approach might be useful for multiple terms 
+           //in one query for example, "bus or mailbox"
+           if (jdata[i].name == "Bus Stop") {
+               jbuses[jbuses.length] = L.marker([jdata[i].latitude,jdata[i].longitude],
+                   {icon: busIcon}).bindPopup(jdata[i].description);
+             } //if
+
+          else if (jdata[i].name == "Mail Box") {
+                jmail[jmail.length] = L.marker([jdata[i].latitude,jdata[i].longitude],
+                {icon: postIcon}).bindPopup(jdata[i].description);
+           }//elseif
+
+      }//for
+
+
+      var busstops = L.layerGroup(jbuses);
+      var mailboxes = L.layerGroup(jmail);
+
+      var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imagery © <a href="http://mapbox.com">Mapbox</a>', mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';
+
+      var grayscale = L.tileLayer(mbUrl, {id: 'examples.map-20v6611k', attribution: mbAttr}),
+           streets   = L.tileLayer(mbUrl, {id: 'examples.map-i86knfo3', attribution: mbAttr});
+
+      var map = L.map('map', {
+          center: [42.3157, -82.9959],
+          zoom: 15,
+          layers: [grayscale, busstops, mailboxes]
+      });
+
+      var baseMaps = {
+          "Grayscale": grayscale,
+          "Streets": streets
+      };
+
+      var overlayMaps = {
+          "Bus Stops": busstops,
+          "Mail Boxes": mailboxes
+      };
+
+      L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+  }//sortOutMap
+
+</script>
+
+
+
+</body>
+</html>

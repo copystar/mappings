@@ -49,6 +49,7 @@ $.ajax({
       var dataset = new recline.Model.Dataset({
   		  records: data.result.records
       });
+      
 	    var $el = $('#mymap');
 	    var map = new recline.View.Map({
   		  model: dataset
