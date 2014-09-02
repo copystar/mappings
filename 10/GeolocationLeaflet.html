@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Geolocation and Leaflet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <style type="text/css">
+    body { margin:0; padding:0; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <script>
+
+var libraryIcon = L.icon({
+    iconUrl: 'library-18.png'
+});
+
+var CentralLibraryIcon = L.icon({
+    iconUrl: 'library-24.png'
+});
+
+var bridgeview = L.marker([42.296991, -83.05012],{icon: libraryIcon}).bindPopup('Bridgeview Library: 1295 Campbell Avenue'),
+    remington = L.marker([42.284915, -83.006215],{icon: libraryIcon}).bindPopup('Remington Park Library: 2710 Lillian Street'),
+    seminole = L.marker([42.316972, -82.9793],{icon: libraryIcon}).bindPopup('Seminole Library: 4285 Seminole Street'),
+    budimir = L.marker([42.268296, -83.026716],{icon: libraryIcon}).bindPopup('Nikola Budimir Memorial Library: Grand Marais West'),
+    riverside = L.marker([42.329794, -82.960902],{icon: libraryIcon}).bindPopup('Riverside Library: 6305 Wyandotte St East'),
+    forestglade = L.marker([42.303067, -82.915847],{icon: libraryIcon}).bindPopup('Forest Glade Library: 3211 Forest Glade Drive'),
+    sandwich = L.marker([42.299659, -83.077893],{icon: libraryIcon}).bindPopup('Sandwich Library: 3312 Sandwich Street'),
+    central = L.marker([42.31127, -83.03431],{icon: CentralLibraryIcon}).bindPopup('Central Library: 850 Ouellette Avenue'),
+    fountainbleu = L.marker([42.29525, -82.953236],{icon: libraryIcon}).bindPopup('Fountainbleu Library: 3030 Rivard Avenue'),
+    walkerville = L.marker([42.30018, -83.004268],{icon: libraryIcon}).bindPopup('South Walkerville: 1425 Tecumseh Road East');
+
+var libraryBranches = L.layerGroup([bridgeview, remington, seminole, budimir, riverside, forestglade, sandwich, walkerville, central, fountainbleu]);
+
+var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imagery © <a href="http://mapbox.com">Mapbox</a>', mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';
+
+var grayscale = L.tileLayer(mbUrl, {id: 'examples.map-20v6611k', attribution: mbAttr}),
+    streets   = L.tileLayer(mbUrl, {id: 'examples.map-i86knfo3', attribution: mbAttr});
+
+var map = L.map('map', {
+    center: [42.3057, -82.9959],
+    zoom: 13,
+    layers: [grayscale, libraryBranches]
+});
+
+var baseMaps = {
+    "Grayscale": grayscale,
+    "Streets": streets
+};
+
+var overlayMaps = {
+    "Library Branches": libraryBranches
+};
+
+L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+map.on('locationfound', onLocationFound);
+ 
+function onLocationFound(e) {
+    L.marker(e.latlng).addTo(map)
+    .bindPopup("You are here").openPopup();
+}
+    map.locate({setView: false, maxZoom: 16});
+
+ </script>
+</body>
+</html>
